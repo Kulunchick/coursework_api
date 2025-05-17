@@ -10,9 +10,11 @@ RUN apt-get update && apt-get install -y \
     libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip install uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 
 WORKDIR /app
+
+RUN uv venv .venv
 COPY requirements.lock ./
 RUN uv pip install --no-cache --system -r requirements.lock
 
@@ -20,8 +22,10 @@ RUN uv pip install --no-cache --system -r requirements.lock
 FROM python:slim
 
 # Копіюємо лише необхідні бібліотеки з етапу збірки
-COPY --from=builder /usr/local/lib/python3.*/site-packages /usr/local/lib/python3.*/site-packages
+COPY --from=builder /app/.venv /app/.venv
 
 WORKDIR /app
+
+ENV PATH="/app/.venv/bin:$PATH"
 COPY src/coursework_operations .
 CMD ["python", "main.py"]
