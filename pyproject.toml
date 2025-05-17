@@ -10,7 +10,7 @@ dependencies = [
     "fastapi>=0.115.12",
     "websockets>=15.0.1",
     "uvicorn>=0.34.2",
-    "assignment-solver>=0.1.0",
+    "assignment-solver>=0.3.0",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"
