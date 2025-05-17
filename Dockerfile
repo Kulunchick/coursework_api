@@ -16,7 +16,7 @@ WORKDIR /app
 
 RUN uv venv .venv
 COPY requirements.lock ./
-RUN uv pip install --no-cache --system -r requirements.lock
+RUN uv pip install --no-cache -r requirements.lock
 
 # Фінальний етап
 FROM python:slim
