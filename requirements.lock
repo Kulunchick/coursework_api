@@ -13,7 +13,8 @@ annotated-types==0.7.0
     # via pydantic
 anyio==4.9.0
     # via starlette
-assignment-solver==0.3.0
+assignment-solver==0.5.0
+cffi==1.17.1
 click==8.2.0
     # via uvicorn
 colorama==0.4.6
@@ -23,7 +24,9 @@ h11==0.16.0
     # via uvicorn
 idna==3.10
     # via anyio
-numpy==2.2.5
+numpy==2.2.6
+pycparser==2.22
+    # via cffi
 pydantic==2.11.4
     # via fastapi
 pydantic-core==2.33.2

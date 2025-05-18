@@ -1,5 +1,5 @@
 # Етап збірки
-FROM python:slim as builder
+FROM python:slim AS builder
 
 # Встановлюємо системні залежності для збірки
 RUN apt-get update && apt-get install -y \
@@ -27,5 +27,5 @@ COPY --from=builder /app/.venv /app/.venv
 WORKDIR /app
 
 ENV PATH="/app/.venv/bin:$PATH"
-COPY src/coursework_operations .
-CMD ["python", "main.py"]
+COPY src src
+CMD ["python", "-m", "src.coursework_operations.main"]
