@@ -53,19 +53,24 @@ async def experiment4_handler(websocket: WebSocket):
         }
 
         for i in range(experiment_data.count):
-            for omega_range in experiment_data.omegaRangeVariants:
-                task_generator = TaskGenerator(
-                    c_min=experiment_data.cRange.min,
-                    c_max=experiment_data.cRange.max,
-                    b_min=experiment_data.bRange.min,
-                    b_max=experiment_data.bRange.max,
-                    omega_min=omega_range.min,
-                    omega_max=omega_range.max
-                )
+            task_generator = TaskGenerator(
+                c_min=experiment_data.cRange.min,
+                c_max=experiment_data.cRange.max,
+                b_min=experiment_data.bRange.min,
+                b_max=experiment_data.bRange.max,
+                omega_min=0,
+                omega_max=0
+            )
 
-                task = task_generator.generate_task(
-                    m=experiment_data.m,
-                    n=experiment_data.n
+            task = task_generator.generate_task(
+                m=experiment_data.m,
+                n=experiment_data.n
+            )
+
+            for omega_range in experiment_data.omegaRangeVariants:
+                task.omega = np.array(
+                    np.random.uniform(omega_range.min, omega_range.max, size=(task.n, task.m)),
+                    dtype=np.float64
                 )
 
                 rust_ant_colony = RustAntColony(

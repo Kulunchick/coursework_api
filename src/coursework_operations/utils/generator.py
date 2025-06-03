@@ -19,7 +19,10 @@ class TaskGenerator:
 
         omega = np.random.uniform(self.omega_min, self.omega_max, (m, n)).tolist()
 
-        task = Task(m=m, n=n, c=c, B_ij=B_ij, B_total=np.sum(B_ij) // 5, omega=omega)
+        B = np.random.randint(np.min(B_ij), np.sum(B_ij))
+        # B = np.sum(B_ij) // 5
+
+        task = Task(m=m, n=n, c=c, B_ij=B_ij, B_total=B, omega=omega)
         return task
 
     def generate_multiple_tasks(self, m, n, num_tasks):
